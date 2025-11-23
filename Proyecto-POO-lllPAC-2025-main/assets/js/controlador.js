@@ -1,3 +1,4 @@
+let usuarios = [];
 var usuarioActual = null;
 var tipoPlanUsuario = null;
 var proyectosUsuario = 0;
@@ -17,6 +18,7 @@ const construirProyectos = () => {
     const js = document.getElementById("js-code").value;
 
     // agregar la lógica para construir el proyecto
+    // hacer un JSON con los datos 
 };
 
 const guardarProyecto = async (usuarioActual) => {
@@ -56,24 +58,29 @@ const cambiarTipoPlan = (nuevoTipoPlan) => {
     console.log("Tipo de plan cambiado a: " + tipoPlanUsuario);
 };
 
+const cargarUsuarios = async () => {
+
+    const resultado = await fetch('http://localhost:PORT/usuarios', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    usuarios = await resultado.json();
+}
+
 /*
-const guardarProyecto = async(usuarioActual) => {
-    if (!verificarLimiteProyectos(usuarioActual.tipoPlan)) {
-        alert("Has alcanzado el límite de proyectos para tu plan actual.");
-        return;
-    } else {
-        const resultado = await fetch('http://localhost:PORT/guardarProyecto', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-        
-        data = await resultado.json();
-        //guardar ( usuarioActual.proyectos += data; )
-        proyectosUsuario++;
-        console.log("Proyecto guardado exitosamente.");    
-    }
+interface usuario {
+    correo: string;
+    contraseña: string;
+    tipoPlan: string;
+    proyectos: Array<proyecto>;
 };
 
+interface proyecto {
+    html: string;
+    css: string;
+    js: string;
+};
 */
